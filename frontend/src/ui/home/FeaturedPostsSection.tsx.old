@@ -1,0 +1,54 @@
+import FeaturedPostCard from "./FeaturedArticleCard";
+import React from "react";
+import Link from "next/link";
+
+export default function FeaturedArticlesSection({
+    articles,
+}: {
+    articles: any;
+}) {
+    const MAX_ARTICLES_MOBILE = 3;
+    const MAX_ARTICLES_DESKTOP = 8;
+
+    return (
+        <div className="flex flex-col  gap-10 px-4  max-w-screen  relative md:h-140 select-text ">
+            <div className="flex justify-between md:justify-start md:gap-20 items-center  max-w-screen">
+                <h1 className=" self-start font-bold  md:text-4xl text-2xl font-sans underline-offset-10 text-gray-800">
+                    Featured articles
+                </h1>
+                <Link
+                    href="/articles/featured"
+                    className="underline text-sm font-semibold text-gray-600 hover:text-gray-800 font-sans underline-offset-4 text-nowrap block md:text-lg md:block md:pt-1"
+                >
+                    see more 
+                </Link>
+            </div>
+                <div>
+                    <div className="scroll-container flex flex-col md:flex-row gap-8 lg:gap-4 snap-x snap-mandatory relative overflow-x-scroll no-scrollbar realtive h-fit ">
+                        {articles.data.map((post: any, index: number) => (
+                            <FeaturedPostCard
+                                post={post}
+                                key={index}
+                                className={
+                                    index < MAX_ARTICLES_MOBILE
+                                        ? "block lg:block"
+                                        : index < MAX_ARTICLES_DESKTOP
+                                        ? "hidden lg:block"
+                                        : "hidden lg:hidden"
+                                }
+                            />
+                        ))}
+                        <div className="shrink-0 w-20 h-full hidden md:block"></div>
+                        <div className="pointer-events-none fixed top-0 right-0 h-full w-12 bg-gradient-to-l from-white via-white via-20% to-transparent hidden md:block"></div>
+                    </div>
+                           {/* <Link
+                        href="/articles/featured"
+                        className="hover:underline pl-8 text-lg font-semibold text-gray-700 font-sans underline-offset-4 text-nowrap md:hidden underline pt-4 block"
+                    >
+                        See more
+                    </Link> */}
+                </div>
+            
+        </div>
+    );
+}

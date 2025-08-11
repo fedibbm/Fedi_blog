@@ -1,0 +1,21 @@
+import Image from "next/image";
+
+export default function PostCard({ post }: { post: any }) {
+    console.log(post.Header.formats.medium.url)
+    return (
+        <div className="h-100 w-80 flex flex-col gap-4 border border-gray-200 rounded-md overflow-hidden ">
+            <div className="relative w-full aspect-[4/3]">
+                <Image
+                    src={`${process.env.CMS_HOSTNAME}${post.Header.formats.medium.url}`}
+                    alt="cover"
+                    fill
+                    className="object-cover"
+                />
+            </div>
+                <div className="flex flex-col gap-2 px-4">
+                    <h1 className="text-lg font-bold">{post.Title}</h1>
+                    <p className="line-clamp-3">{post.excerpt}</p>
+                </div>
+        </div>
+    );
+}
